@@ -15,11 +15,15 @@ spring:
       hibernate:
         format_sql: true
 
-graphql:
-  servlet:
-    mapping: /graphql
-  tools:
-    schema-location-pattern: classpath*:graphql/**/*.graphqls
-  graphiql:
-    enabled: true
-    path: /graphiql
+  graphql:
+    # single HTTP POST endpoint for all GraphQL operations
+    # where to pick up your .graphqls schema files
+    schema:
+      locations: classpath*:graphql/**/*.graphqls   # :contentReference[oaicite:1]{index=1}
+
+    # enable the dev‐only GraphiQL IDE
+    graphiql:
+      enabled: true
+      path: /graphiql
+    http:
+      path: /graphql

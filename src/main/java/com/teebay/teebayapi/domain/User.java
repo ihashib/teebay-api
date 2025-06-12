@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
