@@ -2,6 +2,7 @@ package com.teebay.teebayapi.service;
 
 import com.sun.jdi.InternalException;
 import com.teebay.teebayapi.domain.User;
+import com.teebay.teebayapi.service.dto.LoginDto;
 import com.teebay.teebayapi.service.dto.UserDto;
 import com.teebay.teebayapi.repository.UserRepository;
 import com.teebay.teebayapi.service.mapper.UserMapper;
@@ -37,5 +38,32 @@ public class UserService {
             log.warn("unable to save new user {}", user);
             throw new InternalException("Unable to save new user");
         }
+    }
+
+    public String login(LoginDto loginDto) throws BadRequestException {
+        log.info("logging in {}", loginDto);
+
+        // check email if exists
+        User user = userRepository.findByEmail(loginDto.getEmail())
+                .orElseThrow(() -> {
+                    log.warn("user does not exist with {}", loginDto.getEmail());
+
+                    try {
+                        throw new BadRequestException("Email/Password wrong");
+                    } catch (BadRequestException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
+        // string match password (security not a requirement)
+        if(!user.getPassword().equals(loginDto.getPassword())){
+            log.warn("wrong user or password");
+
+            throw new BadRequestException("Wrong user or password");
+        }
+
+        log.info("Login successful for {}", loginDto);
+
+        return user.getId().toString();
     }
 }
