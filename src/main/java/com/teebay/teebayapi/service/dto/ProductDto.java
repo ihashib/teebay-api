@@ -1,5 +1,6 @@
-package com.teebay.teebayapi.domain;
+package com.teebay.teebayapi.service.dto;
 
+import com.teebay.teebayapi.domain.User;
 import com.teebay.teebayapi.domain.enumeration.Category;
 import com.teebay.teebayapi.domain.enumeration.PeriodUnit;
 import jakarta.persistence.*;
@@ -13,26 +14,20 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Product {
-    @Id
-    @GeneratedValue
+public class ProductDto {
     private UUID id;
 
-    @ManyToOne
     private User owner;
 
     private String title;
 
     private String description;
 
-    @ElementCollection(targetClass = Category.class)
-    @Enumerated(EnumType.STRING)
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories;
 
     private BigDecimal price;
 

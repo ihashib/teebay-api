@@ -7,9 +7,26 @@ enum Category {
   TOYS
 }
 
+enum UserType {
+  USER,
+  ADMIN
+}
+
+enum PeriodUnit {
+  HOUR,
+  DAY,
+  WEEK,
+  MONTH
+}
+
 type User {
   id: ID!
-  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  address: String!
+  phoneNumber: String!
+  userType: UserType!
 }
 
 type Product {
@@ -18,6 +35,9 @@ type Product {
   title: String!
   description: String
   categories: [Category!]!
+  price: Float!
+  rentPrice: Float!
+  rentUnit: PeriodUnit!
 }
 
 enum OrderType {
@@ -42,8 +62,13 @@ type Query {
 }
 
 input RegisterInput {
-  username: String!,
+  email: String!
   password: String!
+  firstName: String!
+  lastName: String!
+  address: String!
+  phoneNumber: String!
+  userType: UserType!
 }
 
 input LoginInput {
@@ -55,6 +80,9 @@ input ProductInput {
   title: String!
   description: String
   categories: [Category!]!
+  price: Float!
+  rentPrice: Float!
+  rentUnit: PeriodUnit!
 }
 
 type Mutation {
