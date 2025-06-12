@@ -33,9 +33,11 @@ public class UserService {
         // save new user
         try {
             log.info("saving new user {}", user);
+
             return userRepository.save(user);
         } catch (Exception e){
             log.warn("unable to save new user {}", user);
+
             throw new InternalException("Unable to save new user");
         }
     }
@@ -48,18 +50,14 @@ public class UserService {
                 .orElseThrow(() -> {
                     log.warn("user does not exist with {}", loginDto.getEmail());
 
-                    try {
-                        throw new BadRequestException("Email/Password wrong");
-                    } catch (BadRequestException e) {
-                        throw new RuntimeException(e);
-                    }
+                    return new BadRequestException("Wrong email or password");
                 });
 
         // string match password (security not a requirement)
         if(!user.getPassword().equals(loginDto.getPassword())){
-            log.warn("wrong user or password");
+            log.warn("Wrong email or password");
 
-            throw new BadRequestException("Wrong user or password");
+            throw new BadRequestException("Wrong email or password");
         }
 
         log.info("Login successful for {}", loginDto);
