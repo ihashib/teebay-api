@@ -28,7 +28,7 @@ public class UserService {
         }
 
         // convert dto to entity
-        User user = userMapper.toUser(userDto);
+        User user = userMapper.toEntity(userDto);
 
         // save new user
         try {

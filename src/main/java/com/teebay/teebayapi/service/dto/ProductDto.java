@@ -4,6 +4,8 @@ import com.teebay.teebayapi.domain.User;
 import com.teebay.teebayapi.domain.enumeration.Category;
 import com.teebay.teebayapi.domain.enumeration.PeriodUnit;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,17 +23,23 @@ import java.util.UUID;
 public class ProductDto {
     private UUID id;
 
+    @NotNull
     private User owner;
 
+    @NotBlank
     private String title;
 
     private String description;
 
+    @NotNull
     private Set<Category> categories;
 
+    @NotNull
     private BigDecimal price;
 
+    @NotNull
     private BigDecimal rentPrice;
 
+    @NotNull
     private PeriodUnit rentUnit;
 }
