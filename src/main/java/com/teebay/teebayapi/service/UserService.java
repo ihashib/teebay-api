@@ -3,6 +3,7 @@ package com.teebay.teebayapi.service;
 import com.teebay.teebayapi.domain.User;
 import com.teebay.teebayapi.exception.BadRequestException;
 import com.teebay.teebayapi.exception.InternalErrorException;
+import com.teebay.teebayapi.exception.NotFoundException;
 import com.teebay.teebayapi.service.dto.LoginDto;
 import com.teebay.teebayapi.service.dto.UserDto;
 import com.teebay.teebayapi.repository.UserRepository;
@@ -10,6 +11,8 @@ import com.teebay.teebayapi.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +63,16 @@ public class UserService {
 
         log.info("Login successful for {}", loginDto);
         return user.getId().toString();
+    }
+
+    public User getUserById(UUID userId){
+        log.info("Get user by id: {}", userId);
+
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> {
+                    log.warn("Owner not found");
+                    return new NotFoundException("Owner not found");
+                });
     }
 }

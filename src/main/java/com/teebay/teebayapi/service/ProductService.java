@@ -7,14 +7,12 @@ import com.teebay.teebayapi.exception.ForbiddenException;
 import com.teebay.teebayapi.exception.InternalErrorException;
 import com.teebay.teebayapi.exception.NotFoundException;
 import com.teebay.teebayapi.repository.ProductRepository;
-import com.teebay.teebayapi.repository.UserRepository;
 import com.teebay.teebayapi.service.dto.ProductDto;
 import com.teebay.teebayapi.service.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,19 +22,14 @@ import java.util.UUID;
 @Slf4j
 public class ProductService {
     private final ProductMapper productMapper;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final ProductRepository productRepository;
 
     public Product createProduct(UUID ownerId, ProductDto productDto) throws BadRequestException {
         log.info("Creating new product: {}", productDto);
 
         // verify owner
-        User owner = userRepository
-            .findById(ownerId)
-            .orElseThrow(() -> {
-                log.warn("Owner not found");
-                return new NotFoundException("Owner not found");
-            });
+        User owner = userService.getUserById(ownerId);
 
         // Convert to entity
         Product product = productMapper.toEntity(productDto);
@@ -123,6 +116,21 @@ public class ProductService {
         } catch (Exception e){
             log.warn("Unable to get {}'s all products", ownerId);
             throw new InternalErrorException("Unable to get all products for owner");
+        }
+    }
+
+    public Product getProductById(UUID productId) throws BadRequestException {
+        log.info("Request to get product id: {}", productId);
+
+        try{
+            return productRepository.findById(productId)
+                .orElseThrow(() -> {
+                    log.warn("Product does not exist for product id: {}", productId);
+                    return new NotFoundException("Product not found");
+                });
+        } catch (Exception e){
+            log.warn("Unable to get product id: {}", productId);
+            throw new InternalErrorException("Unable to get product");
         }
     }
 }
