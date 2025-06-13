@@ -78,6 +78,7 @@ input LoginInput {
 }
 
 input ProductInput {
+  id: ID
   title: String!
   description: String
   categories: [Category!]!
@@ -89,9 +90,9 @@ input ProductInput {
 type Mutation {
   register(input: UserDto!): User
   login(input: LoginInput!): String!
-  addProduct(input: ProductInput!): Product!
-  editProduct(id: ID!, input: ProductInput!): Product!
-  deleteProduct(id: ID!): Boolean!
+  createProduct(input: ProductInput!): Product!
+  updateProduct(input: ProductInput!): Product!
+  deleteProduct(productId: ID!): Boolean!
   buyProduct(id: ID!): Order!
   rentProduct(id: ID!, from: String!, to: String!): Order!
 }

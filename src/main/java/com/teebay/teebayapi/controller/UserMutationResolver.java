@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class MutationResolver {
+public class UserMutationResolver {
     private final UserService userService;
 
     @MutationMapping

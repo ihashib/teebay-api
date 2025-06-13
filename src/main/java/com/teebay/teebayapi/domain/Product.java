@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Product {
     @Id
     @GeneratedValue
+    @Column(nullable = false)
     private UUID id;
 
     @ManyToOne(optional = false)
@@ -35,10 +36,10 @@ public class Product {
     private Set<Category> categories;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private float price;
 
     @Column(nullable = false, name="rent_price")
-    private BigDecimal rentPrice;
+    private float rentPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name="rent_unit")
