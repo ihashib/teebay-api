@@ -1,6 +1,7 @@
 package com.teebay.teebayapi.service.dto;
 
 import com.teebay.teebayapi.domain.enumeration.UserType;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +12,26 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 public class UserDto {
-    private UUID id;
+    @NotNull
     private UserType userType;
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
+
+    @NotBlank
     private String address;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotBlank
     private String password;
 }

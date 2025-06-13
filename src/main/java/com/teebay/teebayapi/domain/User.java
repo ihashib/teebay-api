@@ -14,10 +14,10 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 public class User {
     @Id
     @GeneratedValue
+    @Column(nullable = false)
     private UUID id;
 
     @Column(nullable = false)

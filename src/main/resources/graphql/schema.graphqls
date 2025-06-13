@@ -27,6 +27,7 @@ type User {
   address: String!
   phoneNumber: String!
   userType: UserType!
+  password: String!
 }
 
 type Product {
@@ -61,7 +62,7 @@ type Query {
   myOrders: [Order!]!
 }
 
-input RegisterInput {
+input UserDto {
   email: String!
   password: String!
   firstName: String!
@@ -72,7 +73,7 @@ input RegisterInput {
 }
 
 input LoginInput {
-  username: String!,
+  email: String!,
   password: String!
 }
 
@@ -86,7 +87,7 @@ input ProductInput {
 }
 
 type Mutation {
-  register(input: RegisterInput!): User!
+  register(input: UserDto!): User
   login(input: LoginInput!): String!
   addProduct(input: ProductInput!): Product!
   editProduct(id: ID!, input: ProductInput!): Product!
