@@ -26,7 +26,7 @@ public class ProductQueryResolver {
     }
 
     @QueryMapping
-    public List<Product> myProducts(DataFetchingEnvironment env) {
+    public List<Product> userProducts(DataFetchingEnvironment env) {
         log.info("get user's all products query called");
 
         // verify login

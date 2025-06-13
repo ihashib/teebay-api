@@ -27,7 +27,7 @@ public class OrderService {
     private final UserService userService;
     private final OrderRepository orderRepository;
 
-    Order orderProduct(OrderRequestDto orderRequestDto){
+    public Order orderProduct(OrderRequestDto orderRequestDto){
         log.info("Request to order: {}", orderRequestDto);
 
         // verify buyer and userType is user
@@ -80,7 +80,7 @@ public class OrderService {
         }
     }
 
-    List<Order> getBuyerAllOrders(UUID buyerId){
+    public List<Order> getBuyerAllOrders(UUID buyerId){
         log.info("Get buyer id: {} 's all orders", buyerId);
 
         // verify buyer
@@ -90,7 +90,7 @@ public class OrderService {
         return orderRepository.findByBuyerId(buyer.getId());
     }
 
-    List<Order> getBuyerBoughtOrders(UUID buyerId){
+    public List<Order> getBuyerBoughtOrders(UUID buyerId){
         log.info("Get buyer id: {} 's bought orders", buyerId);
 
         // verify buyer
@@ -100,7 +100,7 @@ public class OrderService {
         return orderRepository.findByBuyerIdAndType(buyer.getId(), OrderType.BUY);
     }
 
-    List<Order> getBuyerBorrowedOrders(UUID buyerId){
+    public List<Order> getBuyerBorrowedOrders(UUID buyerId){
         log.info("Get buyer id: {} 's borrowed orders", buyerId);
 
         // verify buyer
@@ -110,7 +110,7 @@ public class OrderService {
         return orderRepository.findByBuyerIdAndType(buyer.getId(), OrderType.RENT);
     }
 
-    List<Order> getOwnerAllOrders(UUID ownerId){
+    public List<Order> getOwnerAllOrders(UUID ownerId){
         log.info("Get all order for owner id: {}", ownerId);
 
         // verify owner
@@ -120,7 +120,7 @@ public class OrderService {
         return orderRepository.findByProductOwnerId(owner.getId());
     }
 
-    List<Order> getOwnerSoldOrders(UUID ownerId){
+    public List<Order> getOwnerSoldOrders(UUID ownerId){
         log.info("Get sold order for owner id: {}", ownerId);
 
         // verify owner
@@ -130,8 +130,8 @@ public class OrderService {
         return orderRepository.findByProductOwnerIdAndType(owner.getId(), OrderType.BUY);
     }
 
-    List<Order> getOwnerLentOrders(UUID ownerId){
-        log.info("Get lent order for owner id: {}", ownerId);
+    public List<Order> getOwnerRentedOrders(UUID ownerId){
+        log.info("Get rented order for owner id: {}", ownerId);
 
         // verify owner
         User owner = userService.getUserById(ownerId);

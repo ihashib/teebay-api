@@ -58,8 +58,13 @@ type Order {
 type Query {
   me: User
   products: [Product!]!
-  myProducts: [Product!]!
-  myOrders: [Order!]!
+  userProducts: [Product!]!
+  buyerOrders: [Order!]!
+  buyerBoughtOrders: [Order!]!
+  buyerRentedOrders: [Order!]!
+  ownerSoldOrders: [Order!]!
+  ownerSoldBoughtOrders: [Order!]!
+  ownerSoldRentedOrders: [Order!]!
 }
 
 input UserDto {
