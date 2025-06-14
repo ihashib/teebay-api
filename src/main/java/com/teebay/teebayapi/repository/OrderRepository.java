@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface OrderRepository extends JpaRepository<Order, UUID> {
     List<Order> findByBuyerId(UUID buyerId);
 
-    @Query("select order from product_order order where order.product.id = :productId and order.type = 'RENT' "
+    @Query("select order from product_order order where order.product.id = :pid and order.type = 'RENT' "
             + "and ((order.rentStart <= :to and order.rentEnd >= :from))")
     List<Order> findOverlappingRents(@Param("pid") UUID productId,
                                      @Param("from") Instant from,

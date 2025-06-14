@@ -85,7 +85,7 @@ public class OrderQueryResolver {
     }
 
     @QueryMapping
-    public List<Order> soldRentedOrders(DataFetchingEnvironment env) {
+    public List<Order> ownerSoldRentedOrders(DataFetchingEnvironment env) {
         log.info("get owner sold rented orders query called");
 
         // verify login

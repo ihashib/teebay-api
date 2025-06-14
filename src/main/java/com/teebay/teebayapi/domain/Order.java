@@ -33,5 +33,7 @@ public class Order {
     private Instant rentStart;
 
     private Instant rentEnd;
+
+    private double totalPrice;
 }
 

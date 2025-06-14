@@ -4,6 +4,7 @@ import com.teebay.teebayapi.domain.Order;
 import com.teebay.teebayapi.domain.Product;
 import com.teebay.teebayapi.domain.User;
 import com.teebay.teebayapi.domain.enumeration.OrderType;
+import com.teebay.teebayapi.domain.enumeration.PeriodUnit;
 import com.teebay.teebayapi.domain.enumeration.UserType;
 import com.teebay.teebayapi.exception.BadRequestException;
 import com.teebay.teebayapi.exception.ForbiddenException;
@@ -15,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,27 +53,19 @@ public class OrderService {
         }
 
         // Rent overlap validation
-        if(orderRequestDto.getType().equals(OrderType.RENT)
-            && orderRequestDto.getRentStart() != null
-            && orderRequestDto.getRentEnd() != null
-        ) {
-            List<Order> overLappingRentOrders = orderRepository.findOverlappingRents(
-                    product.getId(),
-                    orderRequestDto.getRentStart(),
-                    orderRequestDto.getRentEnd()
-            );
+        validateRentOverlap(orderRequestDto, product);
 
-            if(!overLappingRentOrders.isEmpty()){
-                log.warn("User already rented this product");
-                throw new BadRequestException("Product already rented by you, cannot rent this product");
-            }
-        }
+        // calculate total price
+        double totalPrice = calculateTotalPrice(orderRequestDto, product);
 
         // create new order
         Order order = new Order()
                 .setBuyer(buyer)
                 .setProduct(product)
-                .setType(orderRequestDto.getType());
+                .setType(orderRequestDto.getType())
+                .setRentStart(orderRequestDto.getRentStart())
+                .setRentEnd(orderRequestDto.getRentEnd())
+                .setTotalPrice(totalPrice);
 
         // save order
         try{
@@ -138,5 +135,60 @@ public class OrderService {
 
         // get owner all orders
         return orderRepository.findByProductOwnerIdAndType(owner.getId(), OrderType.RENT);
+    }
+
+    private void validateRentOverlap(OrderRequestDto orderRequestDto, Product product) {
+        if(orderRequestDto.getType().equals(OrderType.RENT)
+                && orderRequestDto.getRentStart() != null
+                && orderRequestDto.getRentEnd() != null
+        ) {
+            List<Order> overLappingRentOrders = orderRepository.findOverlappingRents(
+                    product.getId(),
+                    orderRequestDto.getRentStart(),
+                    orderRequestDto.getRentEnd()
+            );
+
+            if(!overLappingRentOrders.isEmpty()){
+                log.warn("User already rented this product");
+                throw new BadRequestException("Product already rented by you, cannot rent this product");
+            }
+        }
+    }
+
+    private double calculateTotalPrice(OrderRequestDto orderRequestDto, Product product) {
+        double totalPrice;
+        if (orderRequestDto.getType() == OrderType.BUY) {
+            // if buying, then straight forward
+            totalPrice = product.getPrice();
+        } else if (orderRequestDto.getType() == OrderType.RENT) {
+            // if renting, then calculation required
+
+            Instant start = orderRequestDto.getRentStart();
+            Instant end = orderRequestDto.getRentEnd();
+
+            if (start == null || end == null || !start.isBefore(end)) {
+                throw new BadRequestException("Invalid rent period");
+            }
+
+            long units = switch (product.getRentUnit()) {
+                case HOUR -> Duration.between(start, end).toHours();
+                case DAY -> Duration.between(start, end).toDays();
+                case WEEK -> Duration.between(start, end).toDays() / 7;
+                case MONTH -> ChronoUnit.MONTHS.between(
+                    start.atZone(ZoneId.systemDefault()).toLocalDate(),
+                    end.atZone(ZoneId.systemDefault()).toLocalDate()
+                );
+            };
+
+            totalPrice = product.getRentPrice() * units;
+        } else {
+            throw new BadRequestException("Unsupported order type");
+        }
+
+        log.debug("Calculated totalPrice={} for orderType={} on product={}",
+                totalPrice, orderRequestDto.getType(), product.getId()
+        );
+
+        return totalPrice;
     }
 }

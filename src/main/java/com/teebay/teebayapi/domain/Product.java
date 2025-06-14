@@ -10,7 +10,13 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
+@Table(
+    name = "products",
+    uniqueConstraints = @UniqueConstraint(
+        name = "uk_products_owner_title",
+        columnNames = { "owner_id", "title" }
+    )
+)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +27,7 @@ public class Product {
     private UUID id;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
     @Column(nullable = false)
@@ -36,10 +43,10 @@ public class Product {
     private Set<Category> categories;
 
     @Column(nullable = false)
-    private float price;
+    private double price;
 
     @Column(nullable = false, name="rent_price")
-    private float rentPrice;
+    private double rentPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name="rent_unit")

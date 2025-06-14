@@ -4,7 +4,7 @@ public enum PeriodUnit {
     HOUR("Hour"),
     DAY("Day"),
     WEEK("Week"),
-    Month("Month");
+    MONTH("Month");
     PeriodUnit(String name) {
     }
 }

@@ -22,5 +22,6 @@ public class OrderDto {
     private OrderType type;
     private Instant rentStart;
     private Instant rentEnd;
+    private double totalPrice;
 }
 
