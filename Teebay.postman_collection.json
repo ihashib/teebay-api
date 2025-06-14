@@ -1,0 +1,622 @@
+{
+	"info": {
+		"_postman_id": "51fec9fc-1bb3-4a9b-93e3-bfea925d2ae2",
+		"name": "Teebay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17581739"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User 1 register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    register(\r\n        input:{\r\n                email:\"user1@devtest.com\",\r\n                password:\"12345678\",\r\n                firstName:\"Test\",\r\n                lastName:\"User\",\r\n                address:\"Dhaka 1212\",\r\n                phoneNumber:\"1234567890\",\r\n                userType:USER\r\n            }\r\n        )\r\n        {\r\n            id \r\n            email \r\n            firstName\r\n        }\r\n    }",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    register(\r\n        input:{\r\n                email:\"user2@devtest.com\",\r\n                password:\"12345678\",\r\n                firstName:\"Test\",\r\n                lastName:\"User\",\r\n                address:\"Dhaka 1212\",\r\n                phoneNumber:\"1234567890\",\r\n                userType:USER\r\n            }\r\n        )\r\n        {\r\n            id \r\n            email \r\n            firstName\r\n        }\r\n    }",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "user 1 login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    login(\r\n        input:{\r\n            email:\"user1@devtest.com\",\r\n            password:\"12345678\"\r\n        }\r\n    ) \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "user 2 login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    login(\r\n        input:{\r\n            email:\"user2@devtest.com\",\r\n            password:\"12345678\"\r\n        }\r\n    ) \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "User 1 Product 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Bike 1\",\r\n            description:\"Road bike\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 Product 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Bike 2\",\r\n            description:\"Road bike\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 Product 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Bike 3\",\r\n            description:\"Road bike\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 Product 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Cricket Bat 1\",\r\n            description:\"Cricket Bat to play\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 Product 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Cricket Bat 2\",\r\n            description:\"Cricket Bat to play\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 Product 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    createProduct(\r\n        input:{\r\n            title:\"Cricket Bat 3\",\r\n            description:\"Cricket Bat to play\",\r\n            categories:[OUTDOOR,SPORTING_GOODS],\r\n            price:150.0,\r\n            rentPrice:10.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {\r\n        id \r\n        title \r\n        owner { id email }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "33e8304f-e0bf-4020-a748-2f4d07a9073f"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    updateProduct(\r\n        input:{\r\n            id:\"57329c6d-60ae-4ad7-8ebf-6e5262c27224\",\r\n            title:\"Cricket Bat Pro\",\r\n            description:\"Upgraded Bat\",\r\n            categories:[OUTDOOR],\r\n            price:175.0,\r\n            rentPrice:12.0,\r\n            rentUnit:DAY\r\n        }\r\n    )\r\n    {id title description}\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    deleteProduct(\r\n        productId:\"57329c6d-60ae-4ad7-8ebf-6e5262c27224\"\r\n    )\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "All products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    products{\r\n        id \r\n        title \r\n        description \r\n        categories \r\n        price \r\n        rentPrice \r\n        rentUnit \r\n        owner{email} \r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 All products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    userProducts{\r\n        id \r\n        title \r\n    } \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "User 1 Buying User 2's product 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    buyProduct(\r\n        id:\"46c83872-0cd8-4841-bcfb-b4e9cf22e16a\"\r\n    )\r\n    {\r\n        id \r\n        product{title}\r\n        buyer{id}\r\n        type\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 Renting User 2's product 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    rentProduct(\r\n        id:\"90b1f4b2-f931-4fdf-91b4-83f59fc9f79f\",\r\n        from:\"2025-07-01T00:00:00Z\",\r\n        to:\"2025-09-05T00:00:00Z\"\r\n    )\r\n    {\r\n        id \r\n        product{title}\r\n        type \r\n        rentStart \r\n        rentEnd\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 Buying User 1's product 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    buyProduct(\r\n        id:\"079331a0-4461-4771-b40e-ac2b1b9b5665\"\r\n    )\r\n    {\r\n        id \r\n        product{title}\r\n        buyer{id}\r\n        type\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 Renting User 1's product 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_2_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation { \r\n    rentProduct(\r\n        id:\"cb5a5724-cdac-4d08-b013-12f64a28f43e\",\r\n        from:\"2025-07-01T00:00:00Z\",\r\n        to:\"2025-09-05T00:00:00Z\"\r\n    )\r\n    {\r\n        id \r\n        product{title}\r\n        type \r\n        rentStart \r\n        rentEnd\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 all orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    buyerOrders{ \r\n        id \r\n        product{title} \r\n        type \r\n        rentStart \r\n        rentEnd \r\n    } \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 bought orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ buyerBoughtOrders{\r\n        id\r\n        product{title} \r\n        type \r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 rented orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    buyerRentedOrders{\r\n        id\r\n        product{title} \r\n        rentStart \r\n        rentEnd \r\n    } \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 all sold orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    ownerSoldOrders{ \r\n        id \r\n        product{title} \r\n        buyer{email} \r\n        type \r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 sold bought orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    ownerSoldBoughtOrders{ \r\n        id \r\n        product{title} \r\n        buyer{email} \r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 sold rented orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{USER_1_ID}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ \r\n    ownerSoldRentedOrders{\r\n        id \r\n        product{title} \r\n        buyer{email} \r\n        rentStart \r\n        rentEnd \r\n    } \r\n}",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:8080/graphql"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "USER_2_ID",
+			"value": "33e8304f-e0bf-4020-a748-2f4d07a9073f",
+			"type": "default"
+		},
+		{
+			"key": "USER_1_ID",
+			"value": "a605c544-a1e8-481a-bff4-0d23063e081d",
+			"type": "default"
+		},
+		{
+			"key": "USER_2_PRODUCT_3_ID",
+			"value": "57329c6d-60ae-4ad7-8ebf-6e5262c27224",
+			"type": "default"
+		}
+	]
+}
