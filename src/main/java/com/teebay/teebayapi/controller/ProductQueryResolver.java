@@ -6,6 +6,7 @@ import com.teebay.teebayapi.service.ProductService;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -36,5 +37,12 @@ public class ProductQueryResolver {
         }
 
         return productService.getProductsByOwner(userId);
+    }
+
+    @QueryMapping
+    public Product productById(@Argument("productId") UUID productId) {
+        log.info("get product by id query called");
+
+        return productService.getProductById(productId);
     }
 }

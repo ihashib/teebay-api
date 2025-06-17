@@ -56,8 +56,9 @@ type Order {
 }
 
 type Query {
-  me: User
+  getCurrentUser: User
   products: [Product!]
+  productById(productId: ID!): Product!
   userProducts: [Product!]
   buyerOrders: [Order!]
   buyerBoughtOrders: [Order!]
